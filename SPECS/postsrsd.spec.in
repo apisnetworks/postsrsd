@@ -5,8 +5,8 @@
 %define postsrsd_user nobody
 
 Name: postsrsd		
-Version:  1.4
-Release:	20181201.28.gb474f23%{?dist}
+Version:  %VERSION%
+Release:	%RELEASE%%{?dist}
 Summary:	SRS daemon for Postfix
 
 Group:		System Environment/Daemons
