@@ -17,6 +17,7 @@ Source0:	https://github.com/roehling/postsrsd/archive/postsrsd-%{version}.tar.bz
 
 BuildRequires: cmake	
 Requires:	postfix, systemd
+Patch0: postsrsd-1.6-ignore-empty-FROM.patch
 
 %description 
 PostSRSd provides the Sender Rewriting Scheme (SRS) via TCP-based lookup tables 
@@ -24,6 +25,7 @@ for Postfix. SRS is needed if your mail server acts as forwarder.
 
 %prep
 %setup -q
+%patch0 -p1
 
 
 %build
