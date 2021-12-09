@@ -6,8 +6,8 @@
 %define chroot_dir /usr/lib/postsrsd
 
 Name: postsrsd		
-Version:  1.6
-Release:	20200424.4.g02efc02%{?dist}
+Version:  1.11
+Release:	20211209.2.gafa2ca1%{?dist}
 Summary:	SRS daemon for Postfix
 
 Group:		System Environment/Daemons
@@ -17,7 +17,6 @@ Source0:	https://github.com/roehling/postsrsd/archive/postsrsd-%{version}.tar.bz
 
 BuildRequires: cmake	
 Requires:	postfix, systemd
-Patch0: postsrsd-1.6-ignore-empty-FROM.patch
 
 %description 
 PostSRSd provides the Sender Rewriting Scheme (SRS) via TCP-based lookup tables 
@@ -25,7 +24,6 @@ for Postfix. SRS is needed if your mail server acts as forwarder.
 
 %prep
 %setup -q
-%patch0 -p1
 
 
 %build
@@ -55,7 +53,7 @@ ctest -V %{?_smp_mflags}
 %{_sysconfdir}/systemd/system/postsrsd.service
 %attr(0755, root, root) %{chroot_dir}
 %attr(0755, root, root) %{_sbindir}/postsrsd
-
+%attr(0755, root, root) %{_datadir}/%{name}/postsrsd-systemd-launcher
 
 %doc
 %defattr(0644, root, root)
@@ -64,5 +62,7 @@ ctest -V %{?_smp_mflags}
 %{_docdir}/postsrsd/README_UPGRADE.md
 %{_docdir}/postsrsd/main.cf.ex
 
+%posttrans
+/bin/systemctl try-restar postsrsd.service >/dev/null 2>&1 || :
 
 %changelog
