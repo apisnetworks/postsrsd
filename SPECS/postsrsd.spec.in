@@ -34,7 +34,7 @@ BARGS="-DCMAKE_INSTALL_PREFIX=/usr -DCHROOT_DIR=%{chroot_dir}"
 %if %{with selinux}
 	BARGS="${BARGS} -DUSE_SELINUX=ON"
 %endif
-mkdir build && cd build
+mkdir _build && cd _build
 %cmake .. ${BARGS} -DINIT_FLAVOR=%{init}
 %make_build
 

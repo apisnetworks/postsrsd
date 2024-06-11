@@ -6,8 +6,8 @@
 %define chroot_dir /usr/lib/postsrsd
 
 Name: postsrsd		
-Version:  1.11
-Release:	20211209.2.gafa2ca1%{?dist}
+Version:  1.12
+Release:	20240611.0.ga06dc34%{?dist}
 Summary:	SRS daemon for Postfix
 
 Group:		System Environment/Daemons
@@ -34,7 +34,7 @@ BARGS="-DCMAKE_INSTALL_PREFIX=/usr -DCHROOT_DIR=%{chroot_dir}"
 %if %{with selinux}
 	BARGS="${BARGS} -DUSE_SELINUX=ON"
 %endif
-mkdir build && cd build
+mkdir _build && cd _build
 %cmake .. ${BARGS} -DINIT_FLAVOR=%{init}
 %make_build
 
